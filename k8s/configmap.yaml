@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: python-test-cm
+  labels:
+    app: python-test
+data:
+  DATABASE_URL: "192.168.50.40"
+  DATABASE_PORT: "3306"
+  DATABASE_USER: "root"
+  DATABASE_DATABASE: "test"
