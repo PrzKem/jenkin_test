@@ -25,14 +25,6 @@ pipeline {
         }
     }
 
-    stage('configFileProvider') {
-        steps { 
-        configFileProvider([configFile(fileId: '1e2d0069-824a-449e-9a3f-9dc704404dad', targetLocation: '/home/root2/jenkins/workspace/workspace/test2'), configFile(fileId: '641db19b-5692-4ada-ac39-da4a996a8ab9', targetLocation: '/home/root2/jenkins/workspace/workspace/test2')]) {
-            //dummy
-        }
-    } 
-  }
-
   stage('Build and Push Image') {
      steps {
        sh 'docker image build -t ${REPOSITORY_TAG} .'
