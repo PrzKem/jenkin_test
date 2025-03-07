@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'Build-In Node' //set your kubernetes node
+            label 'agent1' //set your kubernetes node
         }
     }
    environment {
