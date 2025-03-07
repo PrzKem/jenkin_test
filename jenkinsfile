@@ -1,9 +1,9 @@
 pipeline {
     agent {
-    node {
-        label 'slave' //set your kubernetes node
+        node {
+            label 'Build-In Node' //set your kubernetes node
+        }
     }
-}
    environment {
      GITHUB_NAME = "PrzeKem"
      GITHUB_PROJECT = "jenkin_test"
