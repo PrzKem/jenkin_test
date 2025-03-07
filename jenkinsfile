@@ -7,9 +7,9 @@ pipeline {
    environment {
      GITHUB_NAME = "PrzeKem"
      GITHUB_PROJECT = "jenkin_test"
-     YOUR_DOCKERHUB_USERNAME = "przekem" (optional)
+     YOUR_DOCKERHUB_USERNAME = "przekem"
      SERVICE_NAME = "test"
-REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${SERVICE_NAME}:${BUILD_ID}"
+     REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${SERVICE_NAME}:${BUILD_ID}"
    }
 
    stages {
