@@ -1,0 +1,50 @@
+pipeline {
+    agent {
+    node {
+        label 'k8s-test-node' //set your kubernetes node
+    }
+}
+   environment {
+     GITHUB_NAME = "PrzeKem"
+     GITHUB_PROJECT = "jenkin_test"
+     YOUR_DOCKERHUB_USERNAME = "przekem" (optional)
+     SERVICE_NAME = "test"
+REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${SERVICE_NAME}:${BUILD_ID}"
+   }
+
+   stages {
+     stage('Preparation') {
+        steps {
+           cleanWs()
+         git credentialsId: 'fsdfsdfs-bbb2-46ed-bc92-vbnvjhgfwwef', url: "https://github.com/${GITHUB_NAME}/${GITHUB_PROJECT}"
+        }
+   }
+  stage('Build') {
+     steps {
+        sh 'echo No build required for Gateway'
+     }
+  }
+
+  stage('configFileProvider') {
+     steps { 
+       configFileProvider([configFile(fileId: '1e2d0069-824a-449e-9a3f-9dc704404dad', targetLocation: '/home/root2/jenkins/workspace/workspace/test2'), configFile(fileId: '641db19b-5692-4ada-ac39-da4a996a8ab9', targetLocation: '/home/root2/jenkins/workspace/workspace/test2')]) {
+// some block
+      }
+  } 
+  }
+
+  stage('Build and Push Image') {
+     steps {
+       sh 'docker image build -t ${REPOSITORY_TAG} .'
+       sh 'docker tag ${REPOSITORY_TAG} localhost:32000/${REPOSITORY_TAG}'
+       sh 'docker push localhost:32000/${REPOSITORY_TAG}'
+     }
+  } 
+
+  stage('Deploy to Cluster') {
+    steps {
+      sh './k8s/create.sh'
+    }
+  }
+ }
+}
