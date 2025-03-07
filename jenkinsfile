@@ -16,7 +16,7 @@ pipeline {
     stage('Preparation') {
         steps {
             cleanWs()
-            git url: "https://github.com/${GITHUB_NAME}/${GITHUB_PROJECT}"
+            // git url: "https://github.com/${GITHUB_NAME}/${GITHUB_PROJECT}"
         }
     }
     stage('Build') {
