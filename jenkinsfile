@@ -1,7 +1,7 @@
 pipeline {
     agent {
     node {
-        label 'k8s-test-node' //set your kubernetes node
+        label 'microk8s' //set your kubernetes node
     }
 }
    environment {
