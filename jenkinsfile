@@ -13,24 +13,24 @@ pipeline {
    }
 
    stages {
-     stage('Preparation') {
+    stage('Preparation') {
         steps {
             cleanWs()
-            git credentialsId: '5df91a07-c8d4-4b1f-b36a-0ef9ab1c4f34', url: "https://github.com/${GITHUB_NAME}/${GITHUB_PROJECT}"
+            git url: "https://github.com/${GITHUB_NAME}/${GITHUB_PROJECT}"
         }
-   }
-  stage('Build') {
-     steps {
-        sh 'echo No build required for Gateway'
-     }
-  }
+    }
+    stage('Build') {
+        steps {
+            sh 'echo No build required for Gateway'
+        }
+    }
 
-  stage('configFileProvider') {
-     steps { 
-       configFileProvider([configFile(fileId: '1e2d0069-824a-449e-9a3f-9dc704404dad', targetLocation: '/home/root2/jenkins/workspace/workspace/test2'), configFile(fileId: '641db19b-5692-4ada-ac39-da4a996a8ab9', targetLocation: '/home/root2/jenkins/workspace/workspace/test2')]) {
-// some block
-      }
-  } 
+    stage('configFileProvider') {
+        steps { 
+        configFileProvider([configFile(fileId: '1e2d0069-824a-449e-9a3f-9dc704404dad', targetLocation: '/home/root2/jenkins/workspace/workspace/test2'), configFile(fileId: '641db19b-5692-4ada-ac39-da4a996a8ab9', targetLocation: '/home/root2/jenkins/workspace/workspace/test2')]) {
+            //dummy
+        }
+    } 
   }
 
   stage('Build and Push Image') {
