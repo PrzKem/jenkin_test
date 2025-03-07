@@ -15,8 +15,8 @@ pipeline {
    stages {
      stage('Preparation') {
         steps {
-           cleanWs()
-         git credentialsId: 'fsdfsdfs-bbb2-46ed-bc92-vbnvjhgfwwef', url: "https://github.com/${GITHUB_NAME}/${GITHUB_PROJECT}"
+            cleanWs()
+            git url: "https://github.com/${GITHUB_NAME}/${GITHUB_PROJECT}"
         }
    }
   stage('Build') {
