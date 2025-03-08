@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'main' //set your kubernetes node
+            label 'kubeagent' //set your kubernetes node
         }
     }
    environment {
