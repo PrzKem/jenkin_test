@@ -10,6 +10,7 @@ pipeline {
      YOUR_DOCKERHUB_USERNAME = "przekem"
      SERVICE_NAME = "test"
      REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${SERVICE_NAME}:${BUILD_ID}"
+     NAMESPACE="test_new"
    }
 
    stages {
@@ -35,7 +36,17 @@ pipeline {
 
   stage('Deploy to Cluster') {
     steps {
-      sh './k8s/create.sh'
+      //sh './k8s/create.sh'
+        sh 'microk8s kubectl create namespace ${NAMESPACE}'
+        sh 'microk8s kubectl config set-context --current --namespace=${NAMESPACE}'
+        sh 'microk8s kubectl apply -f configmap.yaml'
+        sh 'microk8s kubectl apply -f secret.yaml'
+        sh 'microk8s kubectl apply -f ingress.yaml'
+        sh 'microk8s kubectl apply -f deployment.yaml'
+        sh 'microk8s kubectl apply -f service.yaml'
+        
+        sh 'export NEW_IP="$(microk8s kubectl get services/python-test -o jsonpath=\'{.status.loadBalancer.ingress[0].ip}\')"'
+        sh 'echo "IP=$NEW_IP"'
     }
   }
  }
